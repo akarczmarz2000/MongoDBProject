@@ -11,7 +11,6 @@ COLLECTION_NAME = "myFirstMDB"
 def mongo_connect(url):
     try:
         conn = pymongo.MongoClient(url)
-        print("Mongo is connected!")
         return conn
     except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB: %s") % e
@@ -60,7 +59,7 @@ def add_record():
                occupation, 'nationality': nationality}
     
     try:
-        coll.insert(new_doc)
+        coll.insert_one(new_doc)
         print("")
         print("Document inserted")
     except:
@@ -112,7 +111,7 @@ def delete_record():
 
         if confirmation.lower() == 'y':
             try:
-                coll.remove(doc)
+                coll.delete_one(doc)
                 print("Document deleted!")
             except:
                 print("Document not deleted")
